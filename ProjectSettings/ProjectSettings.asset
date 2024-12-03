@@ -687,11 +687,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 92c1c6cd-9d00-4d52-9f6b-f5b89c0b6ee2
+  cloudProjectId: a8b38236-b8af-4343-8fc1-1499f9724bef
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: PlayingGround
-  organizationId: vlastitel2006
+  projectName: My project
+  organizationId: pitap
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
