@@ -1,15 +1,15 @@
 using UnityEngine;
 using System;
 using UnityEngine.InputSystem.Controls;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _initialX;
-    [SerializeField] private float _initialY;
     [SerializeField] private float _constant1;
-    [SerializeField] private float _constant2;
+    [SerializeField] private Vector2 Velocity;
     [SerializeField] private float VelocityX;
     [SerializeField] private float VelocityY;
+    private float k;
     private float _constant3;
     private Vector2 _initialVelocity;
     public Transform Transform { get; private set; }
@@ -22,17 +22,17 @@ public class PlayerController : MonoBehaviour
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
 
-        Vector2 initialPosition = new Vector2(_initialX, _initialY);
-        Transform.position = initialPosition;
+        _initialVelocity = GetCircularMotionVelocity(Transform.position, _constant1);
+        VelocityX = _initialVelocity.x;
+        VelocityY = _initialVelocity.y;
 
-        _initialVelocity = new Vector2(VelocityX, VelocityY);
-          _constant3 = _initialVelocity.x * GetDistance(Transform.position);
-
-        Debug.Log(_initialVelocity.x);
+        //_initialVelocity = new Vector2(VelocityX, VelocityY);
+        _constant3 = _initialVelocity.x * GetDistance(Transform.position);
     }
 
     void FixedUpdate()
     {
+        k = GameObject.Find("Cosmic Slider").GetComponent<Slider>().value;
         float currentX = Transform.position.x;
         float currentY = Transform.position.y;
         float distance = GetDistance(Transform.position);
@@ -55,18 +55,21 @@ public class PlayerController : MonoBehaviour
         VelocityY = velocity * cosAB;*/
 
         float dT = Time.deltaTime;
+        VelocityX += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
+        VelocityY += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
 
-        VelocityX +=(_constant1/ MathF.Pow(distance, 2)) *dT* sinB;
-
-        VelocityY += (_constant1 / MathF.Pow(distance, 2)) * dT*cosB;
-
-
-        Rigidbody.linearVelocity = new Vector2(VelocityX, VelocityY);
-
+        Rigidbody.linearVelocity = new Vector2(VelocityX*k, VelocityY*k);
         //Debug.Log(velocity +","+  currentX+ ","+ cosA); 
     }
 
     public float GetDistance(Vector2 pos){
         return MathF.Sqrt(MathF.Pow(pos.x, 2) + MathF.Pow(pos.y, 2));
+    }
+
+    public Vector2 GetCircularMotionVelocity(Vector2 position, float constant1){
+        float distance = GetDistance(position);
+        float velocityX = -MathF.Sqrt(constant1/distance) * position.y / distance;
+        float velocityY = -MathF.Sqrt(constant1/distance) * position.x / distance;
+        return new Vector2(velocityX, velocityY);
     }
 }
