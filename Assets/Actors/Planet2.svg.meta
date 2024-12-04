@@ -1,0 +1,78 @@
+fileFormatVersion: 2
+guid: 1022ba468437c4d81ad6d07ed0704679
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
+  svgType: 0
+  texturedSpriteMeshType: 0
+  svgPixelsPerUnit: 100
+  gradientResolution: 64
+  alignment: 9
+  customPivot: {x: 0.50000006, y: 0.49999994}
+  generatePhysicsShape: 0
+  viewportOptions: 0
+  preserveViewport: 0
+  advancedMode: 0
+  predefinedResolutionIndex: 1
+  targetResolution: 1080
+  resolutionMultiplier: 1
+  stepDistance: 10
+  samplingStepDistance: 100
+  maxCordDeviationEnabled: 0
+  maxCordDeviation: 1
+  maxTangentAngleEnabled: 0
+  maxTangentAngle: 5
+  keepTextureAspectRatio: 1
+  textureSize: 256
+  textureWidth: 256
+  textureHeight: 256
+  wrapMode: 0
+  filterMode: 1
+  sampleCount: 4
+  preserveSVGImageAspect: 0
+  useSVGPixelsPerUnit: 0
+  spriteData:
+    TessellationDetail: 0
+    SpriteRect:
+      name: planetSprite
+      originalName: 
+      pivot: {x: 0.50000006, y: 0.5000749}
+      alignment: 9
+      border: {x: 0, y: 0, z: 4, w: 564}
+      customData: 
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 500
+        height: 1070
+      spriteID: c934046abba544abbb131bde6d3930ee
+    PhysicsOutlines:
+    - Vertices:
+      - {x: 140, y: 160}
+      - {x: 196, y: 244}
+      - {x: 208, y: 291}
+      - {x: 208, y: 406}
+      - {x: 150, y: 495}
+      - {x: 84, y: 535}
+      - {x: -96, y: 535}
+      - {x: -187, y: 456}
+      - {x: -187, y: 254}
+      - {x: -100, y: 155}
+      - {x: -75, y: 142}
+      - {x: 71, y: 142}
+    - Vertices:
+      - {x: 245, y: -449}
+      - {x: 250, y: -435}
+      - {x: 250, y: -116}
+      - {x: 122, y: -33}
+      - {x: -117, y: -33}
+      - {x: -250, y: -148}
+      - {x: -250, y: -510}
+      - {x: -159, y: -535}
+      - {x: 178, y: -535}
