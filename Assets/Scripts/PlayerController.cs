@@ -12,10 +12,11 @@ public class PlayerController : MonoBehaviour
     private float _constant3;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
+
     //public float VelocityX { get; private set; }
     //public float VelocityY { get; private set; } 
-    
-    void Start()
+
+    private void Start()
     {
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
         _constant3 = _velocity.x * GetDistance(Transform.position);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         k = GameObject.Find("Cosmic Slider").GetComponent<Slider>().value;
         float currentX = Transform.position.x;
@@ -68,5 +69,12 @@ public class PlayerController : MonoBehaviour
         float velocityX = -MathF.Sqrt(constant1/distance) * position.y / distance;
         float velocityY = -MathF.Sqrt(constant1/distance) * position.x / distance;
         return new Vector2(velocityX, velocityY);
+    }
+
+    private float kickPower = 2500;
+
+    private void OnCollisionEnter(Rigidbody other){
+        Debug.Log ("A collider has made contact with the DoorObject Collider");
+        Rigidbody.AddForce(other.linearVelocity * kickPower);
     }
 }
