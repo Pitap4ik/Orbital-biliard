@@ -6,12 +6,10 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _constant1;
-    [SerializeField] private Vector2 Velocity;
-    [SerializeField] private float VelocityX;
-    [SerializeField] private float VelocityY;
+    [SerializeField] private Vector2 _velocity;
+    [SerializeField] private bool _isCircularMotion;
     private float k;
     private float _constant3;
-    private Vector2 _initialVelocity;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     //public float VelocityX { get; private set; }
@@ -22,12 +20,11 @@ public class PlayerController : MonoBehaviour
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
 
-        _initialVelocity = GetCircularMotionVelocity(Transform.position, _constant1);
-        VelocityX = _initialVelocity.x;
-        VelocityY = _initialVelocity.y;
+        if (_isCircularMotion){
+            _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+        }
 
-        //_initialVelocity = new Vector2(VelocityX, VelocityY);
-        _constant3 = _initialVelocity.x * GetDistance(Transform.position);
+        _constant3 = _velocity.x * GetDistance(Transform.position);
     }
 
     void FixedUpdate()
@@ -55,10 +52,10 @@ public class PlayerController : MonoBehaviour
         VelocityY = velocity * cosAB;*/
 
         float dT = Time.deltaTime;
-        VelocityX += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
-        VelocityY += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
+        _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
+        _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
 
-        Rigidbody.linearVelocity = new Vector2(VelocityX*k, VelocityY*k);
+        Rigidbody.linearVelocity = new Vector2(_velocity.x*k, _velocity.y*k);
         //Debug.Log(velocity +","+  currentX+ ","+ cosA); 
     }
 
