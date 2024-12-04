@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
         _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
         
-        if (distance < 0.2) {
+        if (distance < 0.4) {
             GameObject.Destroy(gameObject);
         }
         
