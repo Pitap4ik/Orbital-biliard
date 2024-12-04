@@ -52,8 +52,17 @@ public class PlayerController : MonoBehaviour
         VelocityY = velocity * cosAB;*/
 
         float dT = Time.deltaTime;
+<<<<<<< Updated upstream
         _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
         _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
+=======
+        VelocityX += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
+        VelocityY += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
+        Debug.Log(_constant1 / MathF.Pow(distance, 2) * dT * cosB * k+","+distance);
+        if (distance < 0.2) {
+            GameObject.Destroy(gameObject);
+        }
+>>>>>>> Stashed changes
 
         Rigidbody.linearVelocity = new Vector2(_velocity.x*k, _velocity.y*k);
         //Debug.Log(velocity +","+  currentX+ ","+ cosA); 
