@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         if (distance < 0.4) {
             GameObject.Destroy(gameObject);
         }
-        
+
         Rigidbody.linearVelocity = new Vector2(_velocity.x*k, _velocity.y*k);
 
         Debug.Log(_constant1 / MathF.Pow(distance, 2) * dT * cosB * k+","+distance);
