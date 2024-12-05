@@ -1,60 +1,39 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
 public class CollisionArea : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _collisionDisplay;
     public List<GameObject> CurrentCollisions { get; private set; }
+    public int Score {get; private set; }
 
     private void Start()
     {
         CurrentCollisions = new List<GameObject>();
-        //StartCoroutine(PrintCollisionsCount(1.0f));
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
-    private IEnumerator PrintCollisionsCount(float waitTime)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(waitTime);
-            print($"Collisions: {GetCollisionsCount()}");
-        }
+    private void DisplayCollisionsCountOnCanvas(){
+        _collisionDisplay.text = $"Collisions: {GetCollisionsCount()}";
     }
 
     void OnTriggerEnter2D(UnityEngine.Collider2D col)
     {
+        Score++;
         CurrentCollisions.Add(col.gameObject);
 
-        foreach (GameObject gObject in CurrentCollisions)
-        {
-            //print(gObject.name);
-        }
-
         print($"Collisions: {GetCollisionsCount()}");
+        _collisionDisplay.text = $"Collisions: {GetCollisionsCount()}";
     }
 
     void OnTriggerExit2D(UnityEngine.Collider2D col)
     {
         CurrentCollisions.Remove(col.gameObject);
 
-        if (CurrentCollisions.Count == 0)
-        {
-            //Debug.Log("No collisions.");
-        }
-        else
-        {
-            foreach (GameObject gObject in CurrentCollisions)
-            {
-                //print(gObject.name);
-            }
-        }
-
         print($"Collisions: {GetCollisionsCount()}");
+        _collisionDisplay.text = $"Collisions: {GetCollisionsCount()}";
     }
 
     public int GetCollisionsCount()

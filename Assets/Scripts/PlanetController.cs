@@ -3,7 +3,7 @@ using System;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlanetController : MonoBehaviour
 {
     [SerializeField] private float _constant1;
     [SerializeField] private Vector2 _velocity;
@@ -12,11 +12,8 @@ public class PlayerController : MonoBehaviour
     private float _constant3;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
-
-    //public float VelocityX { get; private set; }
-    //public float VelocityY { get; private set; } 
-
-    private void Start()
+    
+    void Start()
     {
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
@@ -37,26 +34,17 @@ public class PlayerController : MonoBehaviour
         float sinB = -currentX / distance;
         float cosB = currentY / distance * -1;
 
-        /*float velocity = MathF.Sqrt(_constant1 * (-1/_constant2 +1 / distance));
-        float cosA = _constant3 / (distance*sinB * velocity);
-        if (cosA > 1f) { cosA= 1f; }
-        if (cosA < -1f) { cosA = -1f; }
-        float sinA = MathF.Sqrt(1 - MathF.Pow(cosA, 2));
-
-        if (sinB < 0f) { sinA = -sinA; }
-        if (cosB < 0f) { cosA = -cosA; }
-
-        float sinAB = sinA * cosB + sinB * cosA;
-        float cosAB = MathF.Sqrt(1 - MathF.Pow(sinAB, 2));
-
-        VelocityX = velocity * sinAB;
-        VelocityY = velocity * cosAB;*/
-
         float dT = Time.deltaTime;
         _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
         _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
+        
+        if (distance < 0.4) {
+            GameObject.Destroy(gameObject);
+        }
 
         Rigidbody.linearVelocity = new Vector2(_velocity.x*k, _velocity.y*k);
+
+        Debug.Log(_constant1 / MathF.Pow(distance, 2) * dT * cosB * k+","+distance);
         //Debug.Log(velocity +","+  currentX+ ","+ cosA); 
     }
 
@@ -71,10 +59,10 @@ public class PlayerController : MonoBehaviour
         return new Vector2(velocityX, velocityY);
     }
 
-    private float kickPower = 2500;
+    private float kickPower = 1000;
 
-    private void OnCollisionEnter(Rigidbody other){
+    private void OnCollisionEnter2D(Collision2D other){
         Debug.Log ("A collider has made contact with the DoorObject Collider");
-        Rigidbody.AddForce(other.linearVelocity * kickPower);
+        Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * kickPower);
     }
 }
