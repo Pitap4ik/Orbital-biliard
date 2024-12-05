@@ -14,8 +14,4 @@ public class BlackHole : MonoBehaviour
     {
         Transform.Rotate(_rotationSpeed * Time.deltaTime);
     }
-
-    void Func1(int param1, int param2){}
-
-    void Func1(float param1, float param2){}
 }
