@@ -8,6 +8,7 @@ public class CollisionArea : MonoBehaviour
 {
     [SerializeField] private TMP_Text _collisionDisplay;
     public List<GameObject> CurrentCollisions { get; private set; }
+    public int Score {get; private set; }
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class CollisionArea : MonoBehaviour
 
     void OnTriggerEnter2D(UnityEngine.Collider2D col)
     {
+        Score++;
         CurrentCollisions.Add(col.gameObject);
 
         print($"Collisions: {GetCollisionsCount()}");

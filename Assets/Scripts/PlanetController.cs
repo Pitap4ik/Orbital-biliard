@@ -3,7 +3,7 @@ using System;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlanetController : MonoBehaviour
 {
     [SerializeField] private float _constant1;
     [SerializeField] private Vector2 _velocity;
@@ -57,5 +57,12 @@ public class PlayerController : MonoBehaviour
         float velocityX = -MathF.Sqrt(constant1/distance) * position.y / distance;
         float velocityY = -MathF.Sqrt(constant1/distance) * position.x / distance;
         return new Vector2(velocityX, velocityY);
+    }
+
+    private float kickPower = 1000;
+
+    private void OnCollisionEnter2D(Collision2D other){
+        Debug.Log ("A collider has made contact with the DoorObject Collider");
+        Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * kickPower);
     }
 }
