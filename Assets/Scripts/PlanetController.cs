@@ -44,7 +44,7 @@ public class PlanetController : MonoBehaviour
 
         Rigidbody.linearVelocity = new Vector2(_velocity.x*k, _velocity.y*k);
 
-        Debug.Log(_constant1 / MathF.Pow(distance, 2) * dT * cosB * k+","+distance);
+        //Debug.Log(_constant1 / MathF.Pow(distance, 2) * dT * cosB * k+","+distance);
         //Debug.Log(velocity +","+  currentX+ ","+ cosA); 
     }
 
