@@ -10,6 +10,7 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private bool _isDraggable;
     [SerializeField] private float _kickPower;
     [SerializeField] private GameObject _pointOfGravitation;
+    [SerializeField] private bool Clockwise;
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
     public Transform Transform { get; private set; }
@@ -27,6 +28,7 @@ public class PlanetController : MonoBehaviour
 
         if (_isCircularMotion){
             _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+            
         }
     }
 
@@ -90,8 +92,12 @@ public class PlanetController : MonoBehaviour
 
     public Vector2 GetCircularMotionVelocity(Vector2 position, float constant1){
         float distance = GetDistance(position);
+         
         float velocityX = -MathF.Sqrt(constant1/distance) * position.y / distance;
-        float velocityY = -MathF.Sqrt(constant1/distance) * position.x / distance;
+        float velocityY = MathF.Sqrt(constant1/distance) * position.x / distance;
+
+        if (Clockwise) { velocityX *= -1; velocityY *= -1; }
+
         return new Vector2(velocityX, velocityY);
     }
 
