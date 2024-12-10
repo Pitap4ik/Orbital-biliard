@@ -15,17 +15,13 @@ public class CollisionArea : MonoBehaviour
         CurrentCollisions = new List<GameObject>();
     }
 
-    private void DisplayCollisionsCountOnCanvas(){
-        _collisionDisplay.text = $"Collisions: {GetCollisionsCount()}";
-    }
-
     void OnTriggerEnter2D(UnityEngine.Collider2D col)
     {
         Score++;
         CurrentCollisions.Add(col.gameObject);
 
         print($"Collisions: {GetCollisionsCount()}");
-        _collisionDisplay.text = $"Collisions: {GetCollisionsCount()}";
+        DisplayCollisionsCountOnCanvas();
     }
 
     void OnTriggerExit2D(UnityEngine.Collider2D col)
@@ -33,7 +29,12 @@ public class CollisionArea : MonoBehaviour
         CurrentCollisions.Remove(col.gameObject);
 
         print($"Collisions: {GetCollisionsCount()}");
-        _collisionDisplay.text = $"Collisions: {GetCollisionsCount()}";
+        DisplayCollisionsCountOnCanvas();
+    }
+
+    private void DisplayCollisionsCountOnCanvas()
+    {
+        _collisionDisplay.text = $"Collisions: {Score}";
     }
 
     public int GetCollisionsCount()

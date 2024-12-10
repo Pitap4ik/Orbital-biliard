@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.InputSystem.Controls;
 using UnityEngine.UI;
 
 public class PlanetController : MonoBehaviour
@@ -8,26 +7,28 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private float _constant1;
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private bool _isCircularMotion;
-    private float k;
-    private float _constant3;
+    [SerializeField] private float _kickPower;
+    private CanvasController _canvasController;
+    private Vector3 _mousePosition;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
+    public float KValue { get; private set; }
     
     void Start()
     {
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
+        _canvasController = GameObject.Find("Canvas").GetComponent<CanvasController>();
+        _canvasController.KValueSlider.onValueChanged.AddListener(UpdateKValue);
+        KValue = _canvasController.KValueSlider.value;
 
         if (_isCircularMotion){
             _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
-
-        _constant3 = _velocity.x * GetDistance(Transform.position);
     }
 
     private void FixedUpdate()
     {
-        k = GameObject.Find("Cosmic Slider").GetComponent<Slider>().value;
         float currentX = Transform.position.x;
         float currentY = Transform.position.y;
         float distance = GetDistance(Transform.position);
@@ -35,17 +36,40 @@ public class PlanetController : MonoBehaviour
         float cosB = currentY / distance * -1;
 
         float dT = Time.deltaTime;
-        _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*k;
-        _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*k;
+        _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*KValue;
+        _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*KValue;
         
         if (distance < 0.4) {
             GameObject.Destroy(gameObject);
         }
 
-        Rigidbody.linearVelocity = new Vector2(_velocity.x*k, _velocity.y*k);
+        Rigidbody.linearVelocity = new Vector2(_velocity.x*KValue, _velocity.y*KValue);
+    }
 
-        Debug.Log(_constant1 / MathF.Pow(distance, 2) * dT * cosB * k+","+distance);
-        //Debug.Log(velocity +","+  currentX+ ","+ cosA); 
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("A collider has made contact with the DoorObject Collider");
+        Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * _kickPower);
+    }
+
+    void OnMouseDown()
+    {
+        _mousePosition = Input.mousePosition - GetMousePosition();
+    }
+
+    void OnMouseDrag()
+    {
+        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - _mousePosition);
+    }
+
+    private void OnMouseUp()
+    {
+        _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+    }
+
+    Vector3 GetMousePosition()
+    {
+        return Camera.main.WorldToScreenPoint(transform.position);
     }
 
     public float GetDistance(Vector2 pos){
@@ -59,10 +83,8 @@ public class PlanetController : MonoBehaviour
         return new Vector2(velocityX, velocityY);
     }
 
-    private float kickPower = 1000;
-
-    private void OnCollisionEnter2D(Collision2D other){
-        Debug.Log ("A collider has made contact with the DoorObject Collider");
-        Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * kickPower);
+    void UpdateKValue(float k)
+    {
+        KValue = k;
     }
 }
