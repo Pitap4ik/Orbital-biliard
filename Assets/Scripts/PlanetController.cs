@@ -9,6 +9,7 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private bool _isCircularMotion;
     [SerializeField] private bool _isDraggable;
     [SerializeField] private float _kickPower;
+    [SerializeField] private GameObject _pointOfGravitation;
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
     public Transform Transform { get; private set; }
@@ -69,7 +70,9 @@ public class PlanetController : MonoBehaviour
 
     private void OnMouseUp()
     {
-        _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+        if (IsDraggable){
+            _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+        }
     }
 
     Vector3 GetMousePosition()
@@ -77,8 +80,12 @@ public class PlanetController : MonoBehaviour
         return Camera.main.WorldToScreenPoint(transform.position);
     }
 
-    public float GetDistance(Vector2 pos){
-        return MathF.Sqrt(MathF.Pow(pos.x, 2) + MathF.Pow(pos.y, 2));
+    public float GetDistance(Vector2 objectPosition){
+        return MathF.Sqrt(MathF.Pow(objectPosition.x, 2) + MathF.Pow(objectPosition.y, 2));
+    }
+
+    public float GetDistanceFromGravitationalPoint(Vector2 objectPosition, Vector2 gravitationalPointPosition){
+        return GetDistance(new Vector2(objectPosition.x - gravitationalPointPosition.y, objectPosition.y - gravitationalPointPosition.y));
     }
 
     public Vector2 GetCircularMotionVelocity(Vector2 position, float constant1){
