@@ -55,7 +55,7 @@ public class CueController2D : MonoBehaviour
             transform.position = new Vector3(newX, transform.position.y, transform.position.z);
         }
 
-
+        // Когда отпускаем кнопку мыши
         if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
@@ -96,7 +96,7 @@ public class CueController2D : MonoBehaviour
                     targetRb.AddForce(forceDirection * shotForce, ForceMode2D.Impulse);
                 }
 
-
+                // Начинаем возвращение кия после удара
                 isReturning = true;
             }
         }
