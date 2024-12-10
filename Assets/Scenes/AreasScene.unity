@@ -274,6 +274,7 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0}
   _isCircularMotion: 1
   _kickPower: 0
+  _isDraggable: 0
 --- !u!4 &60886532
 Transform:
   m_ObjectHideFlags: 0
@@ -1752,6 +1753,7 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0}
   _isCircularMotion: 1
   _kickPower: 0
+  _isDraggable: 0
 --- !u!4 &1466768318
 Transform:
   m_ObjectHideFlags: 0
@@ -2323,6 +2325,7 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0}
   _isCircularMotion: 1
   _kickPower: 0
+  _isDraggable: 0
 --- !u!4 &1730773263
 Transform:
   m_ObjectHideFlags: 0
@@ -2636,6 +2639,7 @@ MonoBehaviour:
   _velocity: {x: 0, y: 0}
   _isCircularMotion: 1
   _kickPower: 0
+  _isDraggable: 0
 --- !u!4 &2062809936
 Transform:
   m_ObjectHideFlags: 0
@@ -3242,7 +3246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 284948831534939272, guid: ef44619736765004484760b35ffcf9f1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1383668801358038971, guid: ef44619736765004484760b35ffcf9f1, type: 3}
       propertyPath: m_LocalScale.x

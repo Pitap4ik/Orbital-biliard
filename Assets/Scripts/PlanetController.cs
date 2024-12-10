@@ -7,13 +7,15 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private float _constant1;
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private bool _isCircularMotion;
+    [SerializeField] private bool _isDraggable;
     [SerializeField] private float _kickPower;
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public float KValue { get; private set; }
-    
+    public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
+
     void Start()
     {
         Transform = GetComponent<Transform>();
@@ -39,7 +41,7 @@ public class PlanetController : MonoBehaviour
         _velocity.x += (_constant1/MathF.Pow(distance, 2))*dT*sinB*KValue;
         _velocity.y += (_constant1/MathF.Pow(distance, 2))*dT*cosB*KValue;
         
-        if (distance < 0.4) {
+        if (distance < 1) {
             GameObject.Destroy(gameObject);
         }
 
@@ -59,7 +61,10 @@ public class PlanetController : MonoBehaviour
 
     void OnMouseDrag()
     {
-        transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - _mousePosition);
+        if (IsDraggable)
+        {
+            transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - _mousePosition);
+        }
     }
 
     private void OnMouseUp()
