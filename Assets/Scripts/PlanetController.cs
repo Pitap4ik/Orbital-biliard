@@ -79,18 +79,18 @@ public class PlanetController : MonoBehaviour
         float solution1 = (-b + Mathf.Sqrt(D)) / (2 * a);
         float solution2 = (-b - Mathf.Sqrt(D)) / (2 * a);
 
-        if (MathF.Abs(solution1 - VelOtherx1y1.y) >= MathF.Abs(solution2 - VelOtherx1y1.y))
+        if (MathF.Abs(solution1 - VelSelfx1y1.y) >= MathF.Abs(solution2 - VelSelfx1y1.y))
         {
-            VelOtherx1y1.y = solution1;
+            VelSelfx1y1.y = solution1;
         }
         else
         {
-            VelOtherx1y1.y = solution2;
+            VelSelfx1y1.y = solution2;
         }
 
-        Velocity = ReverseVelocityX1Y1(VelOtherx1y1, deltapos);
+        Velocity = ReverseVelocityX1Y1(VelSelfx1y1, deltapos);
 
-        Debug.Log($"{gameObject.name}:{VelOtherx1y1}, {Velocity}");
+        Debug.Log($"{gameObject.name}:{solution1}, {solution2},{Py1},{VelSelf},{VelOther}");
     }
 
     void OnMouseDown()
@@ -132,7 +132,6 @@ public class PlanetController : MonoBehaviour
         float l = GetDistance(deltapos);
         float Vx1 = v.x * (deltapos.y / l) + v.y * (deltapos.x / l);
         float Vy1 = -v.x * (deltapos.x / l) + v.y * (deltapos.y / l);
-        Debug.Log(deltapos.x / l);
         return new Vector2(Vx1, Vy1); 
     }
 
