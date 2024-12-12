@@ -431,6 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _kValueSlider: {fileID: 1218728236}
   _quitButton: {fileID: 1365486025}
+<<<<<<< Updated upstream
   _energyInputField: {fileID: 1416264420}
 =======
   _energyInputField: {fileID: 0}
