@@ -19,6 +19,7 @@ public class PlanetController : MonoBehaviour
     public float KValue { get; private set; }
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
     public float ConservedEnergy { get => _conservedEnergy; set => _conservedEnergy = value; }
+    public Vector2 Velocity { get => _velocity; private set => _velocity = value; }
 
     void Start()
     {
@@ -30,7 +31,7 @@ public class PlanetController : MonoBehaviour
         KValue = _canvasController.KValueSlider.value;
 
         if (_isCircularMotion){
-            _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+            Velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
     }
 
@@ -50,53 +51,46 @@ public class PlanetController : MonoBehaviour
             GameObject.Destroy(gameObject);
         }
 
-        Rigidbody.linearVelocity = new Vector2(_velocity.x*KValue, _velocity.y*KValue);
+        Rigidbody.linearVelocity = new Vector2(Velocity.x * KValue, Velocity.y * KValue);
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        float mOther = other.collider.attachedRigidbody.mass;
-        float mSelf = Rigidbody.mass;
-        Vector2 VelSelf = Rigidbody.linearVelocity;
-        Vector2 VelOther = other.collider.attachedRigidbody.linearVelocity;
-        Vector2 CoorOther = other.transform.position;
+        float mOther = 1;
+        float mSelf = 1;
+        Vector2 VelSelf = _velocity;
+        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().Velocity;
         Vector2 CoorSelf = Transform.position;
+        Vector2 CoorOther = other.transform.position;
 
-        Vector2 deltapos = new Vector2(CoorOther.x-CoorSelf.x, CoorOther.y-CoorSelf.y);
-
+        Vector2 deltapos = new Vector2(CoorOther.x - CoorSelf.x, CoorOther.y - CoorSelf.y);
         Vector2 VelSelfx1y1 = VelocityX1Y1(VelSelf, deltapos);
         Vector2 VelOtherx1y1 = VelocityX1Y1(VelOther, deltapos);
 
         float Py1 = mOther * VelOtherx1y1.y + mSelf * VelSelfx1y1.y;
-
-        float E = (MathF.Pow(VelOtherx1y1.y, 2)+ MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
-
+        float E = (MathF.Pow(VelOtherx1y1.y, 2) + MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
         float ExAfter = (MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
-
         float Edif = E - ExAfter;
 
-        float a = (mSelf/2+MathF.Pow(mSelf,2)/(2*mOther));
-
-        float b = mSelf * Py1 / mOther; 
-
-        float c = MathF.Pow(Py1,2)/(2*mOther)-Edif;
-
+        float a = (mSelf/2 + MathF.Pow(mSelf, 2) / (2 * mOther));
+        float b = mSelf * Py1 / mOther;
+        float c = MathF.Pow(Py1, 2) / (2 * mOther) - Edif;
         float D = MathF.Pow(b, 2) - 4 * a * c;
+        float solution1 = (-b + Mathf.Sqrt(D)) / (2 * a);
+        float solution2 = (-b - Mathf.Sqrt(D)) / (2 * a);
 
-
-        if (MathF.Abs((-b + Mathf.Sqrt(D)) / (2 * a) - VelSelfx1y1.y) >= MathF.Abs((-b - Mathf.Sqrt(D)) / (2 * a) - VelSelfx1y1.y))
+        if (MathF.Abs(solution1 - VelOtherx1y1.y) >= MathF.Abs(solution2 - VelOtherx1y1.y))
         {
-            VelSelfx1y1.y = (-b + Mathf.Sqrt(D)) / (2 * a);
+            VelOtherx1y1.y = solution1;
         }
         else
         {
-            VelSelfx1y1.y = (-b - Mathf.Sqrt(D)) / (2 * a);
+            VelOtherx1y1.y = solution2;
         }
 
-        _velocity = ReverseVelocityX1Y1(VelSelfx1y1, deltapos);
+        Velocity = ReverseVelocityX1Y1(VelOtherx1y1, deltapos);
 
-        Debug.Log($"{gameObject.name}:{VelOther.x}");
-        //Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * _kickPower);
+        Debug.Log($"{gameObject.name}:{VelOtherx1y1}, {Velocity}");
     }
 
     void OnMouseDown()
@@ -114,8 +108,9 @@ public class PlanetController : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (IsDraggable){
-            _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+        if (IsDraggable)
+        {
+            Velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
     }
 
@@ -127,16 +122,17 @@ public class PlanetController : MonoBehaviour
     public Vector2 VelocityX1Y1(Vector2 v,Vector2 deltapos)
     {
         float l = GetDistance(deltapos);
-        float Vx1=v.x*(deltapos.y/l)-v.y*(deltapos.x/l);
+        float Vx1 = v.x * (deltapos.y / l) - v.y * (deltapos.x / l);
         float Vy1 = v.x * (deltapos.x / l) + v.y * (deltapos.y / l);
-        return new Vector2(Vx1, Vy1);// Vx1 is pependicular 
+        return new Vector2(Vx1, Vy1); // Vx1 is pependicular 
     }
 
     public Vector2 ReverseVelocityX1Y1(Vector2 v, Vector2 deltapos)
     {
         float l = GetDistance(deltapos);
         float Vx1 = v.x * (deltapos.y / l) + v.y * (deltapos.x / l);
-        float Vy1 = - v.x * (deltapos.x / l) + v.y * (deltapos.y / l);
+        float Vy1 = -v.x * (deltapos.x / l) + v.y * (deltapos.y / l);
+        Debug.Log(deltapos.x / l);
         return new Vector2(Vx1, Vy1); 
     }
 
