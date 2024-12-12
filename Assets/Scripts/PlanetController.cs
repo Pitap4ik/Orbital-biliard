@@ -87,18 +87,15 @@ public class PlanetController : MonoBehaviour
         if (MathF.Abs((-b + Mathf.Sqrt(D)) / (2 * a) - VelOtherx1y1.y) >= MathF.Abs((-b - Mathf.Sqrt(D)) / (2 * a) - VelOtherx1y1.y))
         {
             VelOtherx1y1.y = (-b + Mathf.Sqrt(D)) / (2 * a);
-
         }
         else
         {
             VelOtherx1y1.y = (-b - Mathf.Sqrt(D)) / (2 * a);
         }
 
+        _velocity += ReverseNormalAndPerpVelocity(VelOtherx1y1, deltapos);
 
-        Rigidbody.linearVelocity = ReverseNormalAndPerpVelocity(VelOtherx1y1, deltapos);
-
-        Debug.Log("A collider has made contact with the DoorObject Collider");
-        Debug.Log(VelOtherx1y1.y);
+        Debug.Log($"{gameObject.name}:{VelOtherx1y1.y}");
         //Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * _kickPower);
     }
 

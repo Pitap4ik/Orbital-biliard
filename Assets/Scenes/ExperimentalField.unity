@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 904724997}
   - component: {fileID: 904724998}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Circle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -838,7 +838,7 @@ Transform:
   m_GameObject: {fileID: 904724992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.14, y: 0.13, z: 0}
+  m_LocalPosition: {x: 9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1822,7 +1822,7 @@ GameObject:
   - component: {fileID: 1943153659}
   - component: {fileID: 1943153660}
   m_Layer: 0
-  m_Name: Circle (1)
+  m_Name: Circle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1919,7 +1919,7 @@ Transform:
   m_GameObject: {fileID: 1943153655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.23, y: 0.24, z: 0}
+  m_LocalPosition: {x: 14.23, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
