@@ -11,18 +11,21 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private float _kickPower;
     [SerializeField] private GameObject _pointOfGravitation;
     [SerializeField] private bool Clockwise;
+    [SerializeField] private float _conservedEnergy;
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public float KValue { get; private set; }
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
+    public float ConservedEnergy { get => _conservedEnergy; set => _conservedEnergy = value; }
 
     void Start()
     {
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
         _canvasController = GameObject.Find("Canvas").GetComponent<CanvasController>();
+        _canvasController.EnergyInputField.onValueChanged.AddListener(UpdateConservedEnergy);
         _canvasController.KValueSlider.onValueChanged.AddListener(UpdateKValue);
         KValue = _canvasController.KValueSlider.value;
 
@@ -101,8 +104,13 @@ public class PlanetController : MonoBehaviour
         return new Vector2(velocityX, velocityY);
     }
 
-    void UpdateKValue(float k)
+    void UpdateKValue(float value)
     {
-        KValue = k;
+        KValue = value;
+    }
+
+    void UpdateConservedEnergy(string value)
+    {
+        ConservedEnergy = float.Parse(value);
     }
 }
