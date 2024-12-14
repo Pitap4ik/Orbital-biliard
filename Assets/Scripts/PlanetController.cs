@@ -47,6 +47,7 @@ public class PlanetController : MonoBehaviour
         }
 
         Rigidbody.linearVelocity = new Vector2(_velocity.x*KValue, _velocity.y*KValue);
+        
     }
 
     void OnCollisionEnter2D(Collision2D other)
