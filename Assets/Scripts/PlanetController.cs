@@ -54,12 +54,17 @@ public class PlanetController : MonoBehaviour
         Rigidbody.linearVelocity = new Vector2(Velocity.x * KValue, Velocity.y * KValue);
     }
 
+    public Vector2 colVelocity;
+
     void OnCollisionEnter2D(Collision2D other)
     {
         float mOther = 1;
         float mSelf = 1;
-        Vector2 VelSelf = _velocity;
-        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().Velocity;
+
+        colVelocity = Velocity;
+
+        Vector2 VelSelf = Velocity;
+        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().colVelocity;
         Vector2 CoorSelf = Transform.position;
         Vector2 CoorOther = other.transform.position;
 
@@ -90,7 +95,7 @@ public class PlanetController : MonoBehaviour
 
         Velocity = ReverseVelocityX1Y1(VelSelfx1y1, deltapos);
 
-        Debug.Log($"{gameObject.name}:{solution1}, {solution2},{Py1},{VelSelf},{VelOther}");
+        Debug.Log($"{gameObject.name}: {VelSelf}, {VelOther}");
     }
 
     void OnMouseDown()

@@ -873,6 +873,7 @@ MonoBehaviour:
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
+  colVelocity: {x: 0, y: 0}
 --- !u!50 &904724999
 Rigidbody2D:
   serializedVersion: 5
@@ -897,7 +898,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!1 &972513651
@@ -1836,7 +1837,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943153655}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1852,7 +1853,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!212 &1943153657
@@ -1981,6 +1982,7 @@ MonoBehaviour:
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
+  colVelocity: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
