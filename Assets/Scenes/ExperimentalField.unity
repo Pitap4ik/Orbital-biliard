@@ -873,7 +873,7 @@ MonoBehaviour:
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
-  colVelocity: {x: 0, y: 0}
+  collisionVelocity: {x: 0, y: 0}
 --- !u!50 &904724999
 Rigidbody2D:
   serializedVersion: 5
@@ -1975,14 +1975,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _constant1: 0
-  _velocity: {x: 0, y: 0}
+  _velocity: {x: -2, y: 0}
   _isCircularMotion: 0
   _isDraggable: 1
   _kickPower: 0
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
-  colVelocity: {x: 0, y: 0}
+  collisionVelocity: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
