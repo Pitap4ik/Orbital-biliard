@@ -14,6 +14,7 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private float _conservedEnergy; 
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
+    public Vector2 collisionVelocity;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public float KValue { get; private set; }
@@ -54,17 +55,13 @@ public class PlanetController : MonoBehaviour
         Rigidbody.linearVelocity = new Vector2(Velocity.x * KValue, Velocity.y * KValue);
     }
 
-    public Vector2 colVelocity;
-
     void OnCollisionEnter2D(Collision2D other)
     {
+        collisionVelocity = Velocity;
         float mOther = 1;
         float mSelf = 1;
-
-        colVelocity = Velocity;
-
         Vector2 VelSelf = Velocity;
-        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().colVelocity;
+        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().collisionVelocity;
         Vector2 CoorSelf = Transform.position;
         Vector2 CoorOther = other.transform.position;
 
