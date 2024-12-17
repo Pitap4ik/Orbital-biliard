@@ -70,12 +70,12 @@ public class PlanetController : MonoBehaviour
         Vector2 VelOtherx1y1 = VelocityX1Y1(VelOther, deltapos);
 
         float Py1 = mOther * VelOtherx1y1.y + mSelf * VelSelfx1y1.y;
-        float E = (MathF.Pow(VelOtherx1y1.y, 2) + MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
+        float E = (MathF.Pow(VelOtherx1y1.y, 2) + MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf/2;
         float ExAfter = (MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
         float Edif = E - ExAfter;
 
         float a = (mSelf/2 + MathF.Pow(mSelf, 2) / (2 * mOther));
-        float b = mSelf * Py1 / mOther;
+        float b = -mSelf * Py1 / mOther;
         float c = MathF.Pow(Py1, 2) / (2 * mOther) - Edif;
         float D = MathF.Pow(b, 2) - 4 * a * c;
         float solution1 = (-b + Mathf.Sqrt(D)) / (2 * a);
@@ -92,7 +92,8 @@ public class PlanetController : MonoBehaviour
 
         Velocity = ReverseVelocityX1Y1(VelSelfx1y1, deltapos);
 
-        Debug.Log($"{gameObject.name}: {VelSelf}, {VelOther}");
+        Debug.Log($"{gameObject.name}: {Edif}, {E}");
+        Debug.Log($"{gameObject.name}: {solution1}, {solution2}");
     }
 
     void OnMouseDown()
