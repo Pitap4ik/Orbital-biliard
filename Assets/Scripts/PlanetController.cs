@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class PlanetController : MonoBehaviour
 {
@@ -11,16 +12,20 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private float _kickPower;
     [SerializeField] private GameObject _pointOfGravitation;
     [SerializeField] private bool _clockwise;
-    [SerializeField] private float _conservedEnergy; 
+    [SerializeField] private float _conservedEnergy;
+    [SerializeField] public float AngNotClokwiseSpeed;
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
     public Vector2 collisionVelocity;
+    public float colisionAngNotClokwiseSpeed;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public float KValue { get; private set; }
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
     public float ConservedEnergy { get => _conservedEnergy; set => _conservedEnergy = value; }
     public Vector2 Velocity { get => _velocity; private set => _velocity = value; }
+
+    private float InAngle = 0;
 
     void Start()
     {
@@ -34,10 +39,16 @@ public class PlanetController : MonoBehaviour
         if (_isCircularMotion){
             Velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
+        Debug.Log(transform.localPosition);
+        //Debug.Log(Transform.parent.localPosition);
+        
     }
 
     private void FixedUpdate()
     {
+
+        InAngle += AngNotClokwiseSpeed;
+        transform.localRotation = Quaternion.Euler(0f, 0f, InAngle);
         float currentX = Transform.position.x;
         float currentY = Transform.position.y;
         float distance = GetDistance(Transform.position);
@@ -54,12 +65,17 @@ public class PlanetController : MonoBehaviour
 
         Rigidbody.linearVelocity = new Vector2(Velocity.x * KValue, Velocity.y * KValue);
         collisionVelocity = Velocity;
+        colisionAngNotClokwiseSpeed = AngNotClokwiseSpeed;
+        
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        float AVelocityOther = other.gameObject.GetComponent<PlanetController>().colisionAngNotClokwiseSpeed;
+        float AVelocitySelf = AngNotClokwiseSpeed; 
         float mOther = 1;
         float mSelf = 1;
+        float k = 1f ;
         Vector2 VelSelf = Velocity;
         Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().collisionVelocity;
         Vector2 CoorSelf = Transform.position;
@@ -70,7 +86,7 @@ public class PlanetController : MonoBehaviour
         Vector2 VelOtherx1y1 = VelocityX1Y1(VelOther, deltapos);
 
         float Py1 = mOther * VelOtherx1y1.y + mSelf * VelSelfx1y1.y;
-        float E = (MathF.Pow(VelOtherx1y1.y, 2) + MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf/2;
+        float E = ((MathF.Pow(VelOtherx1y1.y, 2) + MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf/2)*k;
         float ExAfter = (MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
         float Edif = E - ExAfter;
 
@@ -94,6 +110,10 @@ public class PlanetController : MonoBehaviour
 
         Debug.Log($"{gameObject.name}: {Edif}, {E}");
         Debug.Log($"{gameObject.name}: {solution1}, {solution2}");
+
+        float AAVelocity = (-AVelocityOther + AVelocitySelf) / 2;
+
+        AngNotClokwiseSpeed = AAVelocity/2+ AVelocitySelf/2;
     }
 
     void OnMouseDown()

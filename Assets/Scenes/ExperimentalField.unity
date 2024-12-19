@@ -791,7 +791,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 3286163911610860551, guid: 1022ba468437c4d81ad6d07ed0704679, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -812,8 +812,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -852,7 +852,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 2.5116892
 --- !u!114 &904724998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,13 +866,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _constant1: 0
-  _velocity: {x: 5, y: 0}
+  _velocity: {x: 2, y: 0}
   _isCircularMotion: 0
   _isDraggable: 1
   _kickPower: 0
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
+  AngNotClokwiseSpeed: 5
   collisionVelocity: {x: 0, y: 0}
 --- !u!50 &904724999
 Rigidbody2D:
@@ -1900,7 +1901,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 3286163911610860551, guid: 1022ba468437c4d81ad6d07ed0704679, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1920,9 +1921,9 @@ Transform:
   m_GameObject: {fileID: 1943153655}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.28, y: 5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1960,8 +1961,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.035923004}
+  m_Radius: 2.4877405
 --- !u!114 &1943153660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1975,13 +1976,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _constant1: 0
-  _velocity: {x: -2, y: 0}
+  _velocity: {x: 0, y: 0}
   _isCircularMotion: 0
   _isDraggable: 1
   _kickPower: 0
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
+  AngNotClokwiseSpeed: 0
   collisionVelocity: {x: 0, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
