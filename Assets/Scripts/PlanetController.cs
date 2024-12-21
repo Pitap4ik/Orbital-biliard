@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TreeEditor;
 
 public class PlanetController : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlanetController : MonoBehaviour
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
     public float ConservedEnergy { get => _conservedEnergy; set => _conservedEnergy = value; }
     public Vector2 Velocity { get => _velocity; private set => _velocity = value; }
+    public Vector2 Velocity { get => _velocity; set => _velocity = value; }
 
     void Start()
     {
