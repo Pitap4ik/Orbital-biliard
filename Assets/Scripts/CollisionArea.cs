@@ -17,19 +17,16 @@ public class CollisionArea : MonoBehaviour
 
     void OnTriggerEnter2D(UnityEngine.Collider2D col)
     {
-        Score++;
+        if (col.gameObject.HasComponent<PlanetController>()){
+            Score++;    
+            DisplayCollisionsCountOnCanvas();
+        }
         CurrentCollisions.Add(col.gameObject);
-
-        print($"Collisions: {GetCollisionsCount()}");
-        DisplayCollisionsCountOnCanvas();
     }
 
     void OnTriggerExit2D(UnityEngine.Collider2D col)
     {
         CurrentCollisions.Remove(col.gameObject);
-
-        print($"Collisions: {GetCollisionsCount()}");
-        DisplayCollisionsCountOnCanvas();
     }
 
     private void DisplayCollisionsCountOnCanvas()
