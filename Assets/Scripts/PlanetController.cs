@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TreeEditor;
 
 public class PlanetController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlanetController : MonoBehaviour
     public Rigidbody2D Rigidbody { get; private set; }
     public float KValue { get; private set; }
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
+    public Vector2 Velocity { get => _velocity; set => _velocity = value; }
 
     void Start()
     {
@@ -26,7 +28,7 @@ public class PlanetController : MonoBehaviour
         KValue = _canvasController.KValueSlider.value;
 
         if (_isCircularMotion){
-            _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+            Velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
     }
 
@@ -46,13 +48,11 @@ public class PlanetController : MonoBehaviour
             GameObject.Destroy(gameObject);
         }
 
-        Rigidbody.linearVelocity = new Vector2(_velocity.x*KValue, _velocity.y*KValue);
-        
+        Rigidbody.linearVelocity = new Vector2(Velocity.x*KValue, Velocity.y*KValue);
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("A collider has made contact with the DoorObject Collider");
         Rigidbody.AddForce(other.collider.attachedRigidbody.linearVelocity * _kickPower);
     }
 
@@ -72,7 +72,7 @@ public class PlanetController : MonoBehaviour
     private void OnMouseUp()
     {
         if (IsDraggable){
-            _velocity = GetCircularMotionVelocity(Transform.position, _constant1);
+            Velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
     }
 

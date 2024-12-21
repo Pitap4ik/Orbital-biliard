@@ -14,7 +14,6 @@ public class SampleActorManager : MonoBehaviour
     {
         Transform = GetComponent<Transform>();
         Rigidbody = GetComponent<Rigidbody2D>();
-        //StartCoroutine(ChangeVelocity(0.1f));
     }
 
     private IEnumerator ChangeVelocity(float waitTime)
