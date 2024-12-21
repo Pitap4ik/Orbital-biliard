@@ -277,7 +277,7 @@ MonoBehaviour:
   _kickPower: 0
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
-  _conservedEnergy: 0
+  _conservedEnergy: 6
   AngNotClokwiseSpeed: 0
   collisionVelocity: {x: 0, y: 0}
   colisionAngNotClokwiseSpeed: 0
@@ -2078,6 +2078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1437600484}
+  - component: {fileID: 1437600485}
   m_Layer: 0
   m_Name: Streaching
   m_TagString: Untagged
@@ -2101,6 +2102,20 @@ Transform:
   - {fileID: 2062809936}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437600485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1437600482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed4bbe993e206847a7005c5f34c8b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _constant1: 1000
+  k: 0
 --- !u!1 &1466768315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2142,7 +2157,7 @@ MonoBehaviour:
   _pointOfGravitation: {fileID: 0}
   _clockwise: 1
   _conservedEnergy: 0
-  AngNotClokwiseSpeed: 0
+  AngNotClokwiseSpeed: -3
   collisionVelocity: {x: 0, y: 0}
   colisionAngNotClokwiseSpeed: 0
 --- !u!4 &1466768318
@@ -2719,7 +2734,7 @@ MonoBehaviour:
   _kickPower: 0
   _pointOfGravitation: {fileID: 0}
   _clockwise: 1
-  _conservedEnergy: 0
+  _conservedEnergy: -9
   AngNotClokwiseSpeed: 0
   collisionVelocity: {x: 0, y: 0}
   colisionAngNotClokwiseSpeed: 0
@@ -3182,7 +3197,7 @@ MonoBehaviour:
   _pointOfGravitation: {fileID: 0}
   _clockwise: 0
   _conservedEnergy: 0
-  AngNotClokwiseSpeed: 0
+  AngNotClokwiseSpeed: 5
   collisionVelocity: {x: 0, y: 0}
   colisionAngNotClokwiseSpeed: 0
 --- !u!4 &2062809936
@@ -3828,7 +3843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 284948831534939272, guid: ef44619736765004484760b35ffcf9f1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1383668801358038971, guid: ef44619736765004484760b35ffcf9f1, type: 3}
       propertyPath: m_LocalScale.x
