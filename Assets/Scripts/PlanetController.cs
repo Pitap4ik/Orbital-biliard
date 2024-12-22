@@ -12,22 +12,20 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private Vector2 _velocity;
     [SerializeField] private bool _isCircularMotion;
     [SerializeField] private bool _isDraggable;
-    [SerializeField] private float _kickPower;
     [SerializeField] private GameObject _pointOfGravitation;
     [SerializeField] private bool _clockwise;
     [SerializeField] private float _conservedEnergy;
     [SerializeField] public float AngNotClokwiseSpeed;
     private CanvasController _canvasController;
     private Vector3 _mousePosition;
-    public Vector2 collisionVelocity;
     public float colisionAngNotClokwiseSpeed;
     public Transform Transform { get; private set; }
     public Rigidbody2D Rigidbody { get; private set; }
     public float KValue { get; private set; }
+    public Vector2 CollisionVelocity { get; private set;}
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
     public float ConservedEnergy { get => _conservedEnergy; set => _conservedEnergy = value; }
     public Vector2 Velocity { get => _velocity; set => _velocity = value; }
-
     private float InAngle = 0;
 
     void Start()
@@ -42,13 +40,12 @@ public class PlanetController : MonoBehaviour
         if (_isCircularMotion){
             Velocity = GetCircularMotionVelocity(Transform.position, _constant1);
         }
+
         Debug.Log(transform.localPosition);
-        //Debug.Log(Transform.parent.localPosition);
     }
 
     private void FixedUpdate()
     {
-
         InAngle += AngNotClokwiseSpeed;
         transform.localRotation = Quaternion.Euler(0f, 0f, InAngle);
         float currentX = Transform.position.x;
@@ -66,9 +63,8 @@ public class PlanetController : MonoBehaviour
         }
 
         Rigidbody.linearVelocity = new Vector2(Velocity.x * KValue, Velocity.y * KValue);
-        collisionVelocity = Velocity;
+        CollisionVelocity = Velocity;
         colisionAngNotClokwiseSpeed = AngNotClokwiseSpeed;
-        
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -79,7 +75,7 @@ public class PlanetController : MonoBehaviour
         float mSelf = 1;
         float k = 1f ;
         Vector2 VelSelf = Velocity;
-        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().collisionVelocity;
+        Vector2 VelOther = other.gameObject.GetComponent<PlanetController>().CollisionVelocity;
         Vector2 CoorSelf = Transform.position;
         Vector2 CoorOther = other.transform.position;
 
@@ -162,10 +158,6 @@ public class PlanetController : MonoBehaviour
 
     public float GetDistance(Vector2 objectPosition){
         return MathF.Sqrt(MathF.Pow(objectPosition.x, 2) + MathF.Pow(objectPosition.y, 2));
-    }
-
-    public float GetDistanceFromGravitationalPoint(Vector2 objectPosition, Vector2 gravitationalPointPosition){
-        return GetDistance(new Vector2(objectPosition.x - gravitationalPointPosition.y, objectPosition.y - gravitationalPointPosition.y));
     }
 
     public Vector2 GetCircularMotionVelocity(Vector2 position, float constant1){
