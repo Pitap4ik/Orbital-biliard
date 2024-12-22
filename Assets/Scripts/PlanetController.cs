@@ -24,7 +24,7 @@ public class PlanetController : MonoBehaviour
     public float KValue { get; private set; }
     public bool IsDraggable { get => _isDraggable; set => _isDraggable = value; }
     public float ConservedEnergy { get => _conservedEnergy; set => _conservedEnergy = value; }
-    public Vector2 Velocity { get => _velocity; private set => _velocity = value; }
+    public Vector2 Velocity { get => _velocity; set => _velocity = value; }
 
     private float InAngle = 0;
 
@@ -42,7 +42,6 @@ public class PlanetController : MonoBehaviour
         }
         Debug.Log(transform.localPosition);
         //Debug.Log(Transform.parent.localPosition);
-        
     }
 
     private void FixedUpdate()
