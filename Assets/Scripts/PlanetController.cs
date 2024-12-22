@@ -85,7 +85,7 @@ public class PlanetController : MonoBehaviour
 
         float Py1 = mOther * VelOtherx1y1.y + mSelf * VelSelfx1y1.y;
         float E = ((MathF.Pow(VelOtherx1y1.y, 2) + MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.y, 2) + MathF.Pow(VelSelfx1y1.x, 2)) * mSelf/2)*k;
-        float ExAfter = (MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.x, 2)) * mSelf;
+        float ExAfter = (MathF.Pow(VelOtherx1y1.x, 2)) * mOther / 2 + (MathF.Pow(VelSelfx1y1.x, 2)) * mSelf/2;
         float Edif = E - ExAfter;
 
         float a = (mSelf/2 + MathF.Pow(mSelf, 2) / (2 * mOther));

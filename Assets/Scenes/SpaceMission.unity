@@ -276,7 +276,7 @@ MonoBehaviour:
   _isDraggable: 1
   _pointOfGravitation: {fileID: 438650515}
   _clockwise: 0
-  _conservedEnergy: 0
+  _conservedEnergy: 1
   AngNotClokwiseSpeed: 0
   colisionAngNotClokwiseSpeed: 0
 --- !u!4 &60886532
@@ -3054,7 +3054,7 @@ MonoBehaviour:
   _isDraggable: 1
   _pointOfGravitation: {fileID: 438650515}
   _clockwise: 0
-  _conservedEnergy: 0
+  _conservedEnergy: 1
   AngNotClokwiseSpeed: 0
   colisionAngNotClokwiseSpeed: 0
 --- !u!4 &1466768318
@@ -3454,7 +3454,7 @@ MonoBehaviour:
   _isDraggable: 1
   _pointOfGravitation: {fileID: 438650515}
   _clockwise: 0
-  _conservedEnergy: 0
+  _conservedEnergy: 1
   AngNotClokwiseSpeed: 0
   colisionAngNotClokwiseSpeed: 0
 --- !u!4 &1730773263
@@ -4392,7 +4392,7 @@ MonoBehaviour:
   _isDraggable: 1
   _pointOfGravitation: {fileID: 438650515}
   _clockwise: 1
-  _conservedEnergy: 0
+  _conservedEnergy: 1
   AngNotClokwiseSpeed: 0
   colisionAngNotClokwiseSpeed: 0
 --- !u!4 &2062809936
